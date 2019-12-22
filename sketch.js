@@ -85,23 +85,47 @@ function drawSpline() {
   }
 }
 
-function getListItemValue(i) {
-  return xs[i].toFixed(2) + ', ' + ys[i].toFixed(2);
+function formatControlPoint(value, index, nbTotal) {
+  let string = '';
+  if (index === 0) {
+    string += 'float[' + nbTotal + ']  = {';
+  }
+
+  string += value.toFixed(2) + 'f'
+
+  if (index === nbTotal - 1) {
+    string += '};';
+  }
+  return string;
+}
+
+function getListItemValues() {
+  return [
+    xs.map((x, i) => formatControlPoint(x, i, xs.length)).join(),
+    ys.map((y, i) => formatControlPoint(y, i, ys.length)).join()
+  ];
+}
+
+function constructList() {
+  list.innerHTML = "";
+
+  const values = getListItemValues();
+  for (let i = 0; i < values.length; i++) {
+    const li = createElement('li', values[i]);
+    li.parent(list);
+  }
 }
 
 function updateList() {
-  if (list.childElementCount !== nbControlPoints) {
-    list.innerHTML = "";
-
-    for (let i = 0; i < nbControlPoints; i++) {
-      const li = createElement('li', getListItemValue(i))
-      li.parent(list);
-    }
+  if (list.childElementCount === 0) {
+    constructList();
   } else {
     const children = list.childNodes;
 
+    const values = getListItemValues();
+
     children.forEach((child, i) => {
-      const value = getListItemValue(i);
+      const value = values[i];
       if(child.innerHTML !== value)
         child.innerHTML = value;
     });
