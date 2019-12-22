@@ -78,8 +78,9 @@ function drawControlPoints() {
 }
 
 function drawSpline() {
+  const nbPoints = 500;
   for (let i = 0; i < 500; i++) {
-    const x = i * 0.002;
+    const x = i * (1 / nbPoints);
     const y = spline.at(x);
     point(getX(x), getY(y));
   }
@@ -91,10 +92,10 @@ function formatControlPoint(value, index, nbTotal) {
     string += 'float[' + nbTotal + ']  = {';
   }
 
-  string += value.toFixed(2) + 'f'
+  string += ' ' + value.toFixed(2) + 'f'
 
   if (index === nbTotal - 1) {
-    string += '};';
+    string += ' };';
   }
   return string;
 }
