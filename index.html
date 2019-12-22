@@ -1,14 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cubic Spline Editor</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Cubic Spline Editor</title>
+  <link rel="stylesheet" href="bulma.min.css">
+  <link rel="stylesheet" href="index.css">
+  <script src="p5.js"></script>
+  <script src="cubic-spline.js"></script>
 </head>
 <body>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Cubic Spline Editor
+          </h1>
+          <h2 class="subtitle">
+            On the tip of your finger...
+          </h2>
+        </div>
+      </div>
+    </section>
 
-    <h1>Cubic Spline Editor</h1>
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-4" id="sketch-holder">
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="columns is-centered is-multiline">
+      <div class="column is-12">
+        <h3 class="title is-3">
+          Control Points:
+        </h3>
+      </div>
+      <div class="column is-12">
+        <ul>
+          <li>1.0, 3.0</li>
+          <li>1.0, 3.0</li>
+          <li>1.0, 3.0</li>
+          <li>1.0, 3.0</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
 </body>
+
+<script src="sketch.js"></script>
+
 </html>
