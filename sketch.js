@@ -1,19 +1,32 @@
 /// <reference path="./p5.global-mode.d.ts" />
 
 let spline;
-let nbControlPoints = 5;
+let nbControlPoints = 2;
 
 let editing = false;
 let pointEditing = -1;
 
-const xs = [0.0, 0.2, 0.3, 0.4, 1.0];
-const ys = [0.0, 0.3, 0.6, 0.2, 1.0];
+const xs = [0.0, 1.0];
+const ys = [0.0, 1.0];
 
 const list = document.getElementById('list');
+
+function onMouseClicked() {
+  for (let i = 0; i < nbControlPoints; i++) {
+    if (mouseInRange(i)) {
+      return;
+    }
+  }
+
+  if (!editing) {
+    addControlPoint();
+  }
+}
 
 function setup() {
   var canvas = createCanvas(500, 500);
   canvas.parent('sketch-holder');
+  canvas.mouseClicked(onMouseClicked);
 
   frameRate(24);
 
@@ -72,19 +85,25 @@ function drawSpline() {
   }
 }
 
+function getListItemValue(i) {
+  return xs[i].toFixed(2) + ', ' + ys[i].toFixed(2);
+}
+
 function updateList() {
   if (list.childElementCount !== nbControlPoints) {
     list.innerHTML = "";
 
     for (let i = 0; i < nbControlPoints; i++) {
-      const li = createElement('li', xs[i] + ', ' + ys[i])
+      const li = createElement('li', getListItemValue(i))
       li.parent(list);
     }
   } else {
     const children = list.childNodes;
 
     children.forEach((child, i) => {
-      child.innerHTML = xs[i].toFixed(2) + ', ' + ys[i].toFixed(2);
+      const value = getListItemValue(i);
+      if(child.innerHTML !== value)
+        child.innerHTML = value;
     });
   }
 }
@@ -127,18 +146,7 @@ function addControlPoint() {
   nbControlPoints++;
 }
 
-function mouseClicked() {
-  for (let i = 0; i < nbControlPoints; i++) {
-    if (mouseInRange(i)) {
-      return;
-    }
-  }
-
-  if (!editing) {
-    addControlPoint();
-  }
-}
-
 function mouseReleased() {
   editing = false;
 }
+
